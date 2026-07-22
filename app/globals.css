@@ -1,26 +1,151 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-teal-50: #E8F4F4;
+  --color-teal-100: #C5E4E4;
+  --color-teal-200: #9ACFCF;
+  --color-teal-300: #60B5B5;
+  --color-teal-400: #2A9A9A;
+  --color-teal-500: #1A8080;
+  --color-teal-600: #167878;
+  --color-teal-700: #106060;
+  --color-teal-800: #0D5252;
+  --color-teal-900: #083C3C;
+
+  --color-navy-700: #1E3451;
+  --color-navy-800: #152438;
+  --color-navy-900: #0D1B2A;
+
+  --color-whatsapp: #25D366;
+
+  --font-sans: "Inter", sans-serif;
+
+  --shadow-card: 0 2px 12px rgba(0,0,0,0.08);
+  --shadow-card-hover: 0 8px 30px rgba(26,120,120,0.15);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: "Inter", sans-serif;
+    color: #374151;
+    overflow-x: hidden;
+  }
+  * {
+    box-sizing: border-box;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Section label with lines */
+  .section-label {
+    @apply flex items-center justify-center gap-3 text-teal-600 text-xs font-semibold tracking-widest uppercase mb-3;
+  }
+  .section-label::before,
+  .section-label::after {
+    content: "";
+    @apply flex-1 max-w-[60px] h-px bg-teal-500 opacity-60;
+  }
+
+  /* Primary Button */
+  .btn-primary {
+    @apply bg-teal-600 text-white px-6 py-2.5 rounded-md font-semibold text-sm
+           hover:bg-teal-700 active:scale-95 transition-all duration-200 inline-flex items-center gap-2;
+  }
+
+  /* Outline Button */
+  .btn-outline {
+    @apply border-2 border-teal-600 text-teal-600 px-6 py-2.5 rounded-md font-semibold text-sm
+           hover:bg-teal-600 hover:text-white active:scale-95 transition-all duration-200 inline-flex items-center gap-2;
+  }
+
+  /* WhatsApp Button */
+  .btn-whatsapp {
+    @apply bg-whatsapp text-white px-6 py-2.5 rounded-md font-semibold text-sm
+           hover:opacity-90 active:scale-95 transition-all duration-200 inline-flex items-center gap-2;
+  }
+
+  /* Card */
+  .card {
+    @apply bg-white rounded-xl border border-gray-100 shadow-card hover:shadow-card-hover
+           transition-all duration-300 hover:-translate-y-1;
+  }
+
+  /* Icon circle */
+  .icon-circle {
+    @apply w-16 h-16 rounded-full bg-teal-50 flex items-center justify-center mx-auto mb-4
+           text-teal-600;
+  }
+
+  /* Enquire Button small */
+  .btn-enquire {
+    @apply border border-teal-600 text-teal-600 text-xs font-semibold px-4 py-1.5 rounded
+           hover:bg-teal-600 hover:text-white transition-all duration-200;
+  }
 }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #1A8080; border-radius: 10px; }
+
+/* Hero gradient overlay */
+.hero-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.05) 0%,
+    rgba(0,0,0,0.15) 40%,
+    rgba(0,0,0,0.70) 100%
+  );
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+.float-anim { animation: float 3s ease-in-out infinite; }
+
+/* Pulse ring */
+@keyframes pulseRing {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.pulse-ring::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  animation: pulseRing 1.5s ease-out infinite;
+}
+
+/* Vertical timeline line */
+.timeline-line {
+  position: absolute;
+  left: 22px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #1A8080, #C5E4E4);
+}
+
+/* Explicit whatsapp / navy overrides for Tailwind v4 */
+.bg-whatsapp { background-color: #25D366; }
+.hover\:bg-whatsapp:hover { background-color: #1EBE5A; }
+.text-whatsapp { color: #25D366; }
+.border-whatsapp { border-color: #25D366; }
+.bg-navy-900 { background-color: #0D1B2A; }
+.hover\:bg-navy-900:hover { background-color: #0D1B2A; }
+.bg-navy-800 { background-color: #152438; }
+.hover\:bg-navy-800:hover { background-color: #1a2d47; }
+.text-navy-900 { color: #0D1B2A; }
+.text-navy-800 { color: #152438; }
+.border-navy-800 { border-color: #152438; }
+.bg-navy-950 { background-color: #080f18; }
+
