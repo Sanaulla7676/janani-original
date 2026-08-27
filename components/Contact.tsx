@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Clock, Send, MessageCircle } from "lucide-react";
-import { PHONE, WHATSAPP, EMAIL, ADDRESS, services } from "@/lib/data";
+import { CONTACTS, EMAIL, ADDRESS, services } from "@/lib/data";
 import SectionHeader from "./ui/SectionHeader";
+import ContactMenu from "./ui/ContactMenu";
 
 export default function Contact() {
   const [formState, setFormState] = useState({
@@ -56,25 +57,38 @@ export default function Contact() {
           <div className="lg:col-span-5 bg-white border border-gray-100 rounded-2xl p-6 shadow-card flex flex-col gap-5">
             <h3 className="font-bold text-navy-900 text-lg text-left">Get in Touch</h3>
 
-            <a href={`tel:${PHONE}`} className="flex items-start gap-4 group">
+            <div className="flex items-start gap-4">
               <div className="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-teal-600 shrink-0">
                 <Phone size={18} />
               </div>
-              <div className="text-left">
-                <p className="text-xs text-gray-400 font-medium">Phone</p>
-                <p className="text-sm font-semibold text-navy-900 group-hover:text-teal-600 transition-colors">{PHONE}</p>
+              <div className="text-left flex-1">
+                <p className="text-xs text-gray-400 font-medium mb-1">Phone / WhatsApp</p>
+                <div className="space-y-1.5">
+                  {CONTACTS.map((c) => (
+                    <div key={c.phone} className="flex items-center justify-between gap-3 text-sm">
+                      <span>
+                        <span className="font-semibold text-navy-900">{c.name}</span>
+                        <span className="text-gray-500"> — +91 {c.phone}</span>
+                      </span>
+                      <span className="flex items-center gap-2 shrink-0">
+                        <a href={`tel:+91${c.phone}`} className="w-7 h-7 rounded-full bg-teal-50 flex items-center justify-center text-teal-600 hover:bg-teal-600 hover:text-white transition-colors" aria-label={`Call ${c.name}`}>
+                          <Phone size={13} />
+                        </a>
+                        <a
+                          href={`https://wa.me/91${c.phone}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-7 h-7 rounded-full bg-green-50 flex items-center justify-center text-green-600 hover:bg-green-600 hover:text-white transition-colors"
+                          aria-label={`WhatsApp ${c.name}`}
+                        >
+                          <MessageCircle size={13} />
+                        </a>
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </a>
-
-            <a href={`https://wa.me/${WHATSAPP.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 group">
-              <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 shrink-0">
-                <MessageCircle size={18} />
-              </div>
-              <div className="text-left">
-                <p className="text-xs text-gray-400 font-medium">WhatsApp</p>
-                <p className="text-sm font-semibold text-navy-900 group-hover:text-green-600 transition-colors">{WHATSAPP}</p>
-              </div>
-            </a>
+            </div>
 
             <a href={`mailto:${EMAIL}`} className="flex items-start gap-4 group">
               <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 shrink-0">
@@ -110,7 +124,7 @@ export default function Contact() {
             {/* Map embed */}
             <div className="rounded-xl overflow-hidden h-36 bg-gray-100 mt-1 border border-gray-100">
               <iframe
-                src="https://maps.google.com/maps?q=Vijayanagar,+Bengaluru,+Karnataka&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                src="https://maps.google.com/maps?q=575%2FA,+8th+Main+Road,+Govindaraja+Nagara+Ward,+Stage+2,+Vijayanagar,+Bengaluru,+Karnataka+560040&t=&z=15&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -192,12 +206,20 @@ export default function Contact() {
             </div>
           </div>
           <div className="flex gap-3 shrink-0">
-            <a href={`tel:${PHONE}`} className="bg-navy-900 text-white font-semibold px-5 py-3 rounded-lg flex items-center gap-2 text-sm hover:bg-navy-800 transition-colors">
-              <Phone size={16} /> Call Now<br /><span className="text-xs font-normal">{PHONE}</span>
-            </a>
-            <a href={`https://wa.me/${WHATSAPP.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="bg-whatsapp text-white font-semibold px-5 py-3 rounded-lg flex items-center gap-2 text-sm hover:opacity-90 transition-opacity">
-              <MessageCircle size={16} /> WhatsApp Us<br /><span className="text-xs font-normal">{WHATSAPP}</span>
-            </a>
+            <ContactMenu
+              mode="call"
+              panelPosition="top"
+              className="bg-navy-900 text-white font-semibold px-5 py-3 rounded-lg flex items-center gap-2 text-sm hover:bg-navy-800 transition-colors"
+            >
+              <Phone size={16} /> Call Now
+            </ContactMenu>
+            <ContactMenu
+              mode="whatsapp"
+              panelPosition="top"
+              className="bg-whatsapp text-white font-semibold px-5 py-3 rounded-lg flex items-center gap-2 text-sm hover:opacity-90 transition-opacity"
+            >
+              <MessageCircle size={16} /> WhatsApp Us
+            </ContactMenu>
           </div>
         </div>
       </div>

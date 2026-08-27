@@ -8,12 +8,15 @@ export interface ServiceCard {
   icon: string;
   title: string;
   description: string;
+  gradient?: string;
 }
 
 export interface EquipmentItem {
   image: string;
+  icon?: string;
   title: string;
   description: string;
+  gradient?: string;
 }
 
 export interface CareStep {

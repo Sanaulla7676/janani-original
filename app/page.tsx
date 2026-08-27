@@ -1,4 +1,5 @@
 "use client";
+import Navbar from "@/components/Navbar";
 import FloatingButtons from "@/components/FloatingButtons";
 import Hero from "@/components/Hero";
 import WhyChooseUs from "@/components/WhyChooseUs";
@@ -13,10 +14,11 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <div className="flex flex-col font-sans">
+      <Navbar />
       <FloatingButtons />
       <Hero />
-      <WhyChooseUs />
       <Services />
+      <WhyChooseUs />
       <Equipment />
       <CareProcess />
       <About />

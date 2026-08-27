@@ -3,9 +3,10 @@ import { motion, Variants } from "framer-motion";
 import {
   Clock, UserCheck, Zap, IndianRupee, Phone,
 } from "lucide-react";
-import { whyChooseUs, PHONE } from "@/lib/data";
+import { whyChooseUs } from "@/lib/data";
 import SectionHeader from "./ui/SectionHeader";
 import FadeIn from "./ui/FadeIn";
+import ContactMenu from "./ui/ContactMenu";
 
 const iconMap: Record<string, React.ElementType> = {
   clock: Clock,
@@ -76,12 +77,13 @@ export default function WhyChooseUs() {
                 <p className="text-teal-100 text-xs">Call us now for quick assistance</p>
               </div>
             </div>
-            <a
-              href={`tel:${PHONE}`}
+            <ContactMenu
+              mode="call"
+              panelPosition="top"
               className="flex items-center gap-2 border-2 border-white/70 text-white font-semibold px-5 py-2 rounded-md text-sm hover:bg-white hover:text-teal-700 transition-all duration-200 whitespace-nowrap"
             >
-              <Phone size={14} /> {PHONE}
-            </a>
+              <Phone size={14} /> Call Now
+            </ContactMenu>
           </div>
         </FadeIn>
       </div>

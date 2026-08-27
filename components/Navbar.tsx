@@ -2,8 +2,9 @@
 import { useState, useEffect } from "react";
 import { Phone, MessageCircle, ChevronDown, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { navLinks, PHONE } from "@/lib/data";
+import { navLinks, CONTACTS } from "@/lib/data";
 import Link from "next/link";
+import ContactMenu from "./ui/ContactMenu";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -64,20 +65,18 @@ export default function Navbar() {
 
           {/* CTA Buttons */}
           <div className="flex items-center gap-2">
-            <a
-              href={`tel:${PHONE}`}
+            <ContactMenu
+              mode="call"
               className="hidden sm:flex items-center gap-1.5 border border-teal-600 text-teal-700 px-4 py-2 rounded-md text-sm font-semibold hover:bg-teal-600 hover:text-white transition-all duration-200"
             >
               <Phone size={14} /> Call Now
-            </a>
-            <a
-              href={`https://wa.me/${PHONE.replace(/\D/g, "")}`}
-              target="_blank"
-              rel="noopener noreferrer"
+            </ContactMenu>
+            <ContactMenu
+              mode="whatsapp"
               className="flex items-center gap-1.5 bg-whatsapp text-white px-4 py-2 rounded-md text-sm font-semibold hover:opacity-90 transition-opacity"
             >
               <MessageCircle size={14} /> WhatsApp
-            </a>
+            </ContactMenu>
             {/* Mobile menu toggle */}
             <button
               className="md:hidden ml-2 text-teal-700"
@@ -158,9 +157,21 @@ export default function Navbar() {
                   )}
                 </div>
               ))}
-              <a href={`tel:${PHONE}`} className="mt-2 btn-primary justify-center">
-                <Phone size={14} /> Call Now
-              </a>
+              <div className="mt-2 grid grid-cols-1 gap-1.5">
+                {CONTACTS.map((c) => (
+                  <a
+                    key={c.phone}
+                    href={`tel:+91${c.phone}`}
+                    onClick={() => setMobileOpen(false)}
+                    className="flex items-center justify-between gap-2 bg-teal-50 text-teal-700 px-3 py-2 rounded-md text-sm font-semibold hover:bg-teal-600 hover:text-white transition-colors"
+                  >
+                    <span className="flex items-center gap-2">
+                      <Phone size={14} /> {c.name}
+                    </span>
+                    <span className="text-xs font-normal opacity-80">+91 {c.phone}</span>
+                  </a>
+                ))}
+              </div>
             </nav>
           </motion.div>
         )}

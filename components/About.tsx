@@ -1,13 +1,12 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { stats, trustItems, PHONE, WHATSAPP } from "@/lib/data";
+import { stats, trustItems } from "@/lib/data";
 import SectionHeader from "./ui/SectionHeader";
 import FadeIn from "./ui/FadeIn";
 import {
   ShieldCheck, Users, UserCheck, Clock,
   Award, Clipboard, Zap, Heart, IndianRupee, Home,
-  Phone as PhoneIcon, MessageCircle
 } from "lucide-react";
 
 const statIconMap: Record<string, React.ElementType> = {

@@ -1,9 +1,10 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { careSteps, pricingFeatures, PHONE, WHATSAPP } from "@/lib/data";
+import { careSteps, pricingFeatures } from "@/lib/data";
 import SectionHeader from "./ui/SectionHeader";
 import FadeIn from "./ui/FadeIn";
+import ContactMenu from "./ui/ContactMenu";
 import {
   MessageCircle, ClipboardList, FileCheck, Home,
   Activity, HeartHandshake, Phone, XCircle, PiggyBank,
@@ -115,22 +116,20 @@ export default function CareProcess() {
               </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-              <a
-                href={`tel:${PHONE}`}
+              <ContactMenu
+                mode="call"
+                panelPosition="top"
                 className="bg-navy-900 text-white font-semibold px-5 py-3 rounded-lg flex items-center gap-2 text-sm hover:bg-navy-800 transition-colors"
               >
-                <Phone size={16} /> Call Now<br />
-                <span className="text-xs font-normal">{PHONE}</span>
-              </a>
-              <a
-                href={`https://wa.me/${WHATSAPP.replace(/\D/g, "")}`}
-                target="_blank"
-                rel="noopener noreferrer"
+                <Phone size={16} /> Call Now
+              </ContactMenu>
+              <ContactMenu
+                mode="whatsapp"
+                panelPosition="top"
                 className="bg-whatsapp text-white font-semibold px-5 py-3 rounded-lg flex items-center gap-2 text-sm hover:opacity-90 transition-opacity"
               >
-                <MessageCircle size={16} /> Chat on WhatsApp<br />
-                <span className="text-xs font-normal">{WHATSAPP}</span>
-              </a>
+                <MessageCircle size={16} /> Chat on WhatsApp
+              </ContactMenu>
             </div>
           </div>
         </FadeIn>

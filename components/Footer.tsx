@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Phone, Mail, MapPin, Heart, ArrowUp } from "lucide-react";
-import { PHONE, EMAIL, ADDRESS, footerServices, footerLinks } from "@/lib/data";
+import { CONTACTS, EMAIL, ADDRESS, footerServices, footerLinks } from "@/lib/data";
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -80,13 +80,18 @@ export default function Footer() {
             Get In Touch
           </h4>
           <div className="space-y-3 pt-2 text-sm">
-            <a
-              href={`tel:${PHONE}`}
-              className="flex items-start gap-3 hover:text-teal-400 transition-colors group"
-            >
-              <Phone size={16} className="text-teal-500 mt-1 shrink-0" />
-              <span className="text-left font-medium group-hover:underline">{PHONE}</span>
-            </a>
+            {CONTACTS.map((c) => (
+              <a
+                key={c.phone}
+                href={`tel:+91${c.phone}`}
+                className="flex items-start gap-3 hover:text-teal-400 transition-colors group"
+              >
+                <Phone size={16} className="text-teal-500 mt-1 shrink-0" />
+                <span className="text-left font-medium group-hover:underline">
+                  {c.name} <span className="text-gray-500">— +91 {c.phone}</span>
+                </span>
+              </a>
+            ))}
             <a
               href={`mailto:${EMAIL}`}
               className="flex items-start gap-3 hover:text-teal-400 transition-colors group"
